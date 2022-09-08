@@ -14,7 +14,8 @@ dependencies:
     path: ../../data/data_movie
   entity_movie:
     path: ../../entity/entity_movie
-
+  oni_service_locator:
+    path: ../../../../library/oni_service_locator
 dev_dependencies:
   flutter_test:
     sdk: flutter

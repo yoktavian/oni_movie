@@ -12,6 +12,8 @@ dependencies:
     sdk: flutter
   oni_api:
     path: ../../../../library/oni_api
+  oni_service_locator:
+    path: ../../../../library/oni_service_locator
   entity_movie:
     path: ../../entity/entity_movie
 dev_dependencies:

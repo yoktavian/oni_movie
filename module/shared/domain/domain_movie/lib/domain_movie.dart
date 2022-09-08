@@ -1,7 +1,4 @@
 library domain_movie;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+export 'src/domain_movie_module_connector.dart';
+export 'src/get_movies_usecase.dart';

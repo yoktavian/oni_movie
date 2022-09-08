@@ -25,7 +25,7 @@ class OnBoardingView extends StatelessWidget {
           onTap: () {
             OniRouter.pushName(
               context,
-              AuthRoutes.login,
+              HomeRoutes.home,
               args: {
                 AuthBundles.idLogin: '1',
               },

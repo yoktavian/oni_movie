@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:oni_service_locator/oni_service_locator.dart';
 
 /// abstraction for route and navigation.
 /// as you know that flutter still doing their research about navigation things
@@ -8,6 +9,11 @@ import 'package:flutter/widgets.dart';
 /// adjust the router without touching any screen.
 abstract class OniRouter {
   abstract final Map<String, WidgetBuilder> routes;
+  abstract ModuleConnector moduleConnector;
+
+  OniRouter() {
+    moduleConnector.connect();
+  }
 
   static pushName(
     BuildContext context,

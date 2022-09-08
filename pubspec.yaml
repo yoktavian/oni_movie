@@ -45,6 +45,8 @@ dependencies:
     path: library/oni_api
   oni_service_locator:
     path: library/oni_service_locator
+  api_client:
+    path: module/base/api_client
 
 dev_dependencies:
   flutter_test:

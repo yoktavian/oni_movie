@@ -1,15 +1,31 @@
+import 'package:api_client/api_client.dart';
 import 'package:feature_auth/feature_auth.dart';
 import 'package:feature_home/feature_home.dart';
 import 'package:flutter/material.dart';
 import 'package:navigation/navigation.dart';
+import 'package:oni_api/oni_api.dart';
 import 'package:oni_router/oni_router.dart';
+import 'package:oni_service_locator/oni_service_locator.dart';
 
-void main() {
-  runApp(const OniMovieApp());
+void main() async {
+  final serviceLocator = OniServiceLocatorImpl();
+  await _initializeServiceFactory(serviceLocator);
+
+  runApp(OniMovieApp(serviceLocator));
+}
+
+Future<void> _initializeServiceFactory(
+  OniServiceLocator serviceLocator,
+) async {
+  serviceLocator.registerFactory<OniApi>(
+    () => ApiClient(),
+  );
 }
 
 class OniMovieApp extends StatelessWidget {
-  const OniMovieApp({super.key});
+  final OniServiceLocator serviceLocator;
+
+  const OniMovieApp(this.serviceLocator, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +36,8 @@ class OniMovieApp extends StatelessWidget {
       ),
       routes: _populateRoutes(
         [
-          AuthRouter(),
-          HomeRouter(),
+          AuthRouter(serviceLocator),
+          HomeRouter(serviceLocator),
         ],
       ),
       initialRoute: AuthRoutes.onBoarding,
