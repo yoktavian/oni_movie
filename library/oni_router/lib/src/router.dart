@@ -9,7 +9,11 @@ import 'package:flutter/widgets.dart';
 abstract class OniRouter {
   abstract final Map<String, WidgetBuilder> routes;
 
-  static pushName(BuildContext context, String route) {
-    Navigator.of(context).pushNamed(route);
+  static pushName(
+    BuildContext context,
+    String route, {
+    Map<String, dynamic>? args,
+  }) {
+    Navigator.of(context).pushNamed(route, arguments: args);
   }
 }

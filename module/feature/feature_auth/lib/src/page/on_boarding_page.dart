@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:oni_router/oni_router.dart';
 
 class OnBoardingPage extends StatelessWidget {
   const OnBoardingPage({super.key});
@@ -18,8 +19,19 @@ class OnBoardingView extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Onboarding'),
       ),
-      body: const SafeArea(
-        child: Text('Welcome'),
+      body: SafeArea(
+        child: InkWell(
+          onTap: () {
+            OniRouter.pushName(
+              context,
+              AuthBundle.loginRoute,
+              // args: {
+              //   AuthBundle.idLoginBundle: '1',
+              // },
+            );
+          },
+          child: const Text('Welcome'),
+        ),
       ),
     );
   }

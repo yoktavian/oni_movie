@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:oni_router/oni_router.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const LoginView();
+    return LoginView(
+      context.get<String>(AuthBundle.idLoginBundle),
+    );
   }
 }
 
 class LoginView extends StatelessWidget {
-  const LoginView({super.key});
+  final String idUser;
+
+  const LoginView(this.idUser, {super.key});
 
   @override
   Widget build(BuildContext context) {
