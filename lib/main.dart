@@ -1,6 +1,7 @@
 import 'package:feature_auth/feature_auth.dart';
 import 'package:feature_home/feature_home.dart';
 import 'package:flutter/material.dart';
+import 'package:navigation/navigation.dart';
 import 'package:oni_router/oni_router.dart';
 
 void main() {
@@ -23,7 +24,7 @@ class OniMovieApp extends StatelessWidget {
           HomeRouter(),
         ],
       ),
-      initialRoute: AuthBundle.onBoardingRoute,
+      initialRoute: AuthRoutes.onBoarding,
     );
   }
 

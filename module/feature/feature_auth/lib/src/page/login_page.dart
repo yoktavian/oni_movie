@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:navigation/navigation.dart';
 import 'package:oni_router/oni_router.dart';
 
 class LoginPage extends StatelessWidget {
@@ -7,7 +8,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LoginView(
-      context.get<String>(AuthBundle.idLoginBundle),
+      context.get<String>(AuthBundles.idLogin),
     );
   }
 }
@@ -19,6 +20,7 @@ class LoginView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(idUser);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Login'),

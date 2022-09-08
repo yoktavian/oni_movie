@@ -1,16 +1,5 @@
 import 'package:flutter/widgets.dart';
 
-class AuthBundle {
-  static const idLoginBundle = '/auth/login';
-
-  static const onBoardingRoute = '/auth';
-  static const loginRoute = '/auth/login';
-}
-
-class HomeBundle {
-  static const homeRoute = '/home';
-}
-
 extension BundleExtension on BuildContext {
   /// use opt when it is optional and the value is nullable
   T? opt<T>(String bundle) {

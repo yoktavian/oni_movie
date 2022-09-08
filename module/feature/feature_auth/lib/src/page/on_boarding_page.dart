@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:navigation/navigation.dart';
 import 'package:oni_router/oni_router.dart';
 
 class OnBoardingPage extends StatelessWidget {
@@ -24,10 +25,10 @@ class OnBoardingView extends StatelessWidget {
           onTap: () {
             OniRouter.pushName(
               context,
-              AuthBundle.loginRoute,
-              // args: {
-              //   AuthBundle.idLoginBundle: '1',
-              // },
+              AuthRoutes.login,
+              args: {
+                AuthBundles.idLogin: '1',
+              },
             );
           },
           child: const Text('Welcome'),

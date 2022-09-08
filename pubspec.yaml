@@ -37,6 +37,8 @@ dependencies:
     path: module/feature/feature_auth
   feature_home:
     path: module/feature/feature_home
+  navigation:
+    path: module/shared/navigation
   oni_router:
     path: library/oni_router
 
