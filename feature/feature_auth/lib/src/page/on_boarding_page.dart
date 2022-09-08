@@ -16,10 +16,10 @@ class OnBoardingView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('hai'),
+        title: const Text('Onboarding'),
       ),
       body: const SafeArea(
-        child: Text('Test'),
+        child: Text('Welcome'),
       ),
     );
   }

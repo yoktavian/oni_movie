@@ -1,5 +1,7 @@
-import 'package:feature_auth/src/page/on_boarding_page.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
+
+import '/src/page/login_page.dart';
+import '/src/page/on_boarding_page.dart';
 import 'package:oni_router/oni_router.dart';
 
 class AuthRouter extends OniRouter {
@@ -7,7 +9,7 @@ class AuthRouter extends OniRouter {
   Map<String, WidgetBuilder> get routes {
     return {
       AuthBundle.onBoardingRoute: (_) => const OnBoardingPage(),
-      AuthBundle.loginRoute: (_) => const OnBoardingPage(),
+      AuthBundle.loginRoute: (_) => const LoginPage(),
     };
   }
 }
