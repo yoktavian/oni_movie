@@ -1,7 +1,7 @@
 name: feature_home
 description: A new Flutter package project.
 version: 0.0.1
-homepage:
+publish_to: 'none'
 
 environment:
   sdk: '>=2.18.0 <3.0.0'
@@ -10,6 +10,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_bloc: ^8.1.1
+  oni_router:
+    path: ../../../library/oni_router
+  navigation:
+    path: ../../shared/navigation
 
 dev_dependencies:
   flutter_test:

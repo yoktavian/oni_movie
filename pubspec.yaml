@@ -34,9 +34,13 @@ dependencies:
 
   cupertino_icons: ^1.0.2
   feature_auth:
-    path: feature/feature_auth
+    path: module/feature/feature_auth
   feature_home:
-    path: feature/feature_home
+    path: module/feature/feature_home
+  navigation:
+    path: module/shared/navigation
+  oni_router:
+    path: library/oni_router
 
 dev_dependencies:
   flutter_test:
