@@ -1,7 +1,7 @@
 import 'package:oni_api/oni_api.dart';
 
 class MovieClient extends OniApi {
-  MovieClient(): super(baseUrl: 'https://api.themoviedb.org/3/movie/550');
+  MovieClient(): super(baseUrl: 'https://api.themoviedb.org');
 }
 
 class MovieClientInterceptor extends OniApiInterceptor {
