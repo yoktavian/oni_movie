@@ -1,0 +1,7 @@
+class HomeRoutes {
+
+}
+
+class HomeBundles {
+
+}

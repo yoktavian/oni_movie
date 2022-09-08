@@ -1,0 +1,7 @@
+class AuthRoutes {
+
+}
+
+class AuthBundle {
+
+}
