@@ -51,13 +51,16 @@ class _HomeViewState extends State<HomeView> {
           },
           builder: (_, state) {
             final cards = state.moviesResponse?.results?.map(
-              (element) {
+              (movie) {
                 return TopCard(
-                  posterUrl: element.posterPath ?? '',
-                  title: element.title ?? '',
-                  year: element.releaseDate ?? '',
-                  popularity: element.popularity.toString(),
-                  vote: element.voteAverage?.toInt() ?? 0,
+                  posterUrl: movie.posterPath ?? '',
+                  title: movie.title ?? '',
+                  releaseDateTitle: 'Release',
+                  releaseDate: movie.releaseDate ?? '',
+                  popularityTitle: 'Popularity',
+                  popularity: movie.popularity.toString(),
+                  overviewTitle: 'Overview',
+                  overview: movie.overview ?? '',
                 );
               },
             ).toList();
@@ -65,7 +68,7 @@ class _HomeViewState extends State<HomeView> {
             return ListView(
               padding: const EdgeInsets.all(16),
               children: [
-                OniTopPicksCard(
+                OniTopPicksSection(
                   title: 'Now playing movies',
                   cards: cards ?? [],
                 ),
