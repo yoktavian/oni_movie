@@ -15,6 +15,8 @@ dependencies:
     path: ../../../library/oni_router
   navigation:
     path: ../../shared/navigation
+  oni_service_locator:
+    path: ../../../library/oni_service_locator
 
 dev_dependencies:
   flutter_test:

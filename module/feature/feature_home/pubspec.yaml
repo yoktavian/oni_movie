@@ -15,6 +15,10 @@ dependencies:
     path: ../../../library/oni_router
   navigation:
     path: ../../shared/navigation
+  oni_service_locator:
+    path: ../../../library/oni_service_locator
+  domain_movie:
+    path: ../../shared/domain/domain_movie
 
 dev_dependencies:
   flutter_test:
