@@ -1,0 +1,11 @@
+name: my_project
+
+packages:
+  - '*'
+  - library/**
+  - module/**
+
+scripts:
+  analyze: melos exec -- "dart analyze ."
+  apply_fix: melos exec -- "dart fix --apply"
+  get: melos exec -c 1 --file-exists=".metadata" -- "flutter pub get"

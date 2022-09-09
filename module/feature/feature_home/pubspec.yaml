@@ -22,6 +22,8 @@ dependencies:
   entity_movie:
     path: ../../shared/entity/entity_movie
   async: ^2.9.0
+  onion:
+    path: ../../shared/onion
 
 dev_dependencies:
   flutter_test:

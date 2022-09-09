@@ -40,7 +40,7 @@ class OniMovieApp extends StatelessWidget {
           HomeRouter(serviceLocator),
         ],
       ),
-      initialRoute: AuthRoutes.onBoarding,
+      initialRoute: HomeRoutes.home,
     );
   }
 
