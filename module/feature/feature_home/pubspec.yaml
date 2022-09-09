@@ -19,6 +19,9 @@ dependencies:
     path: ../../../library/oni_service_locator
   domain_movie:
     path: ../../shared/domain/domain_movie
+  entity_movie:
+    path: ../../shared/entity/entity_movie
+  async: ^2.9.0
 
 dev_dependencies:
   flutter_test:

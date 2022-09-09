@@ -8,7 +8,7 @@ class DataMovieModuleConnector extends ModuleConnector {
 
   @override
   void connect() {
-    serviceLocator.registerFactory<GetMovie>(
+    serviceLocator.registerFactory<GetMovies>(
       () => MovieRepository(serviceLocator.getIt<OniApi>()),
     );
   }

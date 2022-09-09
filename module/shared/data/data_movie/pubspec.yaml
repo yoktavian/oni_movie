@@ -16,6 +16,7 @@ dependencies:
     path: ../../../../library/oni_service_locator
   entity_movie:
     path: ../../entity/entity_movie
+  async: ^2.9.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

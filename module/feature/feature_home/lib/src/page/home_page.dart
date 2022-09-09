@@ -1,4 +1,6 @@
+import 'package:async/async.dart';
 import 'package:domain_movie/domain_movie.dart';
+import 'package:entity_movie/entity_movie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,7 +25,7 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (c, t) {
-        context.read<HomeCubit>().test();
+        context.read<HomeCubit>().fetchMovies();
 
         return Scaffold(
           appBar: AppBar(title: const Text('Home')),
@@ -45,8 +47,12 @@ class HomeCubit extends Cubit<HomeState> {
 
   HomeCubit(this.useCase, super.initialState);
 
-  void test() async {
+  void fetchMovies() async {
     final result = await useCase.getMovies();
-    print(result);
+    if (result is ValueResult) {
+      print((result.asValue.value as MoviesResponse).results?.first.title);
+    } else {
+      print(result);
+    }
   }
 }

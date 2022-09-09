@@ -10,7 +10,7 @@ class DomainMovieModuleConnector extends ModuleConnector {
   void connect() {
     DataMovieModuleConnector(serviceLocator).connect();
     serviceLocator.registerFactory<GetMovieUseCase>(
-      () => GetMovieUseCase(serviceLocator.getIt<GetMovie>()),
+      () => GetMovieUseCase(serviceLocator.getIt<GetMovies>()),
     );
   }
 }
