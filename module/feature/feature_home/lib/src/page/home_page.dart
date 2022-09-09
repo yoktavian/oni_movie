@@ -1,6 +1,5 @@
-import 'package:async/async.dart';
 import 'package:domain_movie/domain_movie.dart';
-import 'package:entity_movie/entity_movie.dart';
+import '/src/cubit/home_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onion/onion.dart';
@@ -14,51 +13,56 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (create) => HomeCubit(getMovieUseCase(), HomeState()),
-      child: HomeView(),
+      child: const HomeView(),
     );
   }
 }
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   const HomeView({super.key});
+
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<HomeCubit>().fetchMovies();
+  }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
-      builder: (c, t) {
-        // context.read<HomeCubit>().fetchMovies();
+      builder: (_, state) {
+        final cards = state.moviesResponse?.results?.map(
+          (element) {
+            return TopCard(
+              posterUrl: element.posterPath ?? '',
+              title: element.title ?? '',
+              year: element.releaseDate ?? '',
+              popularity: element.popularity.toString(),
+              vote: element.voteAverage?.toInt() ?? 0,
+            );
+          },
+        ).toList();
 
         return Scaffold(
-          appBar: AppBar(title: const Text('Home')),
+          backgroundColor: OniColor.bleachedCedar,
           body: SafeArea(
             child: ListView(
+              padding: const EdgeInsets.all(16),
               children: [
-                Text('data'),
-                OniTopPicksCard(),
+                OniTopPicksCard(
+                  title: 'Now playing movies',
+                  cards: cards ?? [],
+                ),
               ],
-            )
+            ),
           ),
         );
       },
     );
-  }
-}
-
-class HomeState {
-
-}
-
-class HomeCubit extends Cubit<HomeState> {
-  final GetMovieUseCase useCase;
-
-  HomeCubit(this.useCase, super.initialState);
-
-  void fetchMovies() async {
-    final result = await useCase.getMovies();
-    if (result is ValueResult) {
-      print((result.asValue.value as MoviesResponse).results?.first.title);
-    } else {
-      print(result);
-    }
   }
 }
