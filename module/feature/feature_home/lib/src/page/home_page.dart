@@ -1,8 +1,9 @@
 import 'package:domain_movie/domain_movie.dart';
-import '/src/cubit/home_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:onion/onion.dart';
+
+import '/src/cubit/home_cubit.dart';
 
 class HomePage extends StatelessWidget {
   final GetMovieUseCase Function() getMovieUseCase;
@@ -34,24 +35,34 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeCubit, HomeState>(
-      builder: (_, state) {
-        final cards = state.moviesResponse?.results?.map(
-          (element) {
-            return TopCard(
-              posterUrl: element.posterPath ?? '',
-              title: element.title ?? '',
-              year: element.releaseDate ?? '',
-              popularity: element.popularity.toString(),
-              vote: element.voteAverage?.toInt() ?? 0,
-            );
+    return Scaffold(
+      backgroundColor: OniColor.bleachedCedar,
+      body: SafeArea(
+        child: BlocConsumer<HomeCubit, HomeState>(
+          listener: (_, state) {
+            if (state.homeLoadingState == HomeLoadingState.error) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Gagal memuat, silahkan coba lagi'),
+                  backgroundColor: OniColor.red,
+                ),
+              );
+            }
           },
-        ).toList();
+          builder: (_, state) {
+            final cards = state.moviesResponse?.results?.map(
+              (element) {
+                return TopCard(
+                  posterUrl: element.posterPath ?? '',
+                  title: element.title ?? '',
+                  year: element.releaseDate ?? '',
+                  popularity: element.popularity.toString(),
+                  vote: element.voteAverage?.toInt() ?? 0,
+                );
+              },
+            ).toList();
 
-        return Scaffold(
-          backgroundColor: OniColor.bleachedCedar,
-          body: SafeArea(
-            child: ListView(
+            return ListView(
               padding: const EdgeInsets.all(16),
               children: [
                 OniTopPicksCard(
@@ -59,10 +70,10 @@ class _HomeViewState extends State<HomeView> {
                   cards: cards ?? [],
                 ),
               ],
-            ),
-          ),
-        );
-      },
+            );
+          },
+        ),
+      ),
     );
   }
 }
