@@ -7,44 +7,75 @@ enum HomeLoadingState { loading, success, error }
 
 class HomeState {
   final HomeLoadingState homeLoadingState;
-  final MoviesResponse? moviesResponse;
+  final MoviesResponse? nowPlayingMoviesData;
+  final MoviesResponse? upcomingMoviesData;
 
   HomeState({
     this.homeLoadingState = HomeLoadingState.loading,
-    this.moviesResponse,
+    this.nowPlayingMoviesData,
+    this.upcomingMoviesData,
   });
 
   HomeState copy({
     HomeLoadingState? homeLoadingState,
-    MoviesResponse? moviesResponse,
+    MoviesResponse? nowPlayingMoviesData,
+    MoviesResponse? upcomingMoviesData,
   }) {
     return HomeState(
       homeLoadingState: homeLoadingState ?? this.homeLoadingState,
-      moviesResponse: moviesResponse ?? this.moviesResponse,
+      nowPlayingMoviesData: nowPlayingMoviesData ?? this.nowPlayingMoviesData,
+      upcomingMoviesData: upcomingMoviesData ?? this.upcomingMoviesData,
     );
   }
 }
 
 class HomeCubit extends Cubit<HomeState> {
-  final GetMovieUseCase useCase;
+  final GetNowPlayingMoviesUseCase getNowPlayingMoviesUseCase;
+  final GetUpComingMoviesUseCase getUpComingMoviesUseCase;
 
-  HomeCubit(this.useCase, super.initialState);
+  HomeCubit(
+    this.getNowPlayingMoviesUseCase,
+    this.getUpComingMoviesUseCase,
+    super.initialState,
+  );
 
-  void fetchMovies() async {
+  void loadMovies() async {
     if (state.homeLoadingState != HomeLoadingState.loading) {
       emit(state.copy(homeLoadingState: HomeLoadingState.loading));
     }
 
-    final result = await useCase.getMovies();
+    final nowPlayingMoviesFetchSuccess = await fetchNowPlayingMovies();
+    final upcomingMoviesFetchSuccess = await fetchUpComingMovies();
+    if (nowPlayingMoviesFetchSuccess && upcomingMoviesFetchSuccess) {
+      emit(state.copy(homeLoadingState: HomeLoadingState.success));
+    } else {
+      emit(state.copy(homeLoadingState: HomeLoadingState.error));
+    }
+  }
+
+  Future<bool> fetchNowPlayingMovies() async {
+    final result = await getNowPlayingMoviesUseCase.getMovies();
     if (result is ValueResult) {
       emit(
         state.copy(
-          moviesResponse: result.asValue.value as MoviesResponse,
-          homeLoadingState: HomeLoadingState.success,
+          nowPlayingMoviesData: result.asValue.value as MoviesResponse,
         ),
       );
-    } else {
-      state.copy(homeLoadingState: HomeLoadingState.error);
+      return true;
     }
+    return false;
+  }
+
+  Future<bool> fetchUpComingMovies() async {
+    final result = await getUpComingMoviesUseCase.getMovies();
+    if (result is ValueResult) {
+      emit(
+        state.copy(
+          upcomingMoviesData: result.asValue.value as MoviesResponse,
+        ),
+      );
+      return true;
+    }
+    return false;
   }
 }

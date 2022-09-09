@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:onion/onion.dart';
-import '/src/style/oni_text.dart';
 
 class OniTopPicksSection extends StatelessWidget {
   final String title;

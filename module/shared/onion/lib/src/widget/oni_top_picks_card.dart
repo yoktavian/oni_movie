@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:onion/onion.dart';
-import 'package:onion/src/style/oni_text.dart';
+import 'package:onion/src/widget/oni_label.dart';
 
 class TopCard extends StatelessWidget {
   final String posterUrl;
@@ -62,17 +62,7 @@ class TopCard extends StatelessWidget {
                 style: OniTextStyle.bodyBold.copyWith(color: OniColor.white),
               ),
               const SizedBox(height: 4),
-              Container(
-                decoration: BoxDecoration(
-                  color: OniColor.flamingo,
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                padding: const EdgeInsets.all(4),
-                child: Text(
-                  releaseDate,
-                  style: OniTextStyle.caption.copyWith(color: OniColor.white),
-                ),
-              ),
+              OniLabel(label: releaseDate),
               const SizedBox(height: 12),
               Text(
                 popularityTitle,

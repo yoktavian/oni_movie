@@ -6,14 +6,23 @@ import 'package:onion/onion.dart';
 import '/src/cubit/home_cubit.dart';
 
 class HomePage extends StatelessWidget {
-  final GetMovieUseCase Function() getMovieUseCase;
+  final GetNowPlayingMoviesUseCase Function() getNowPlayingMoviesUseCase;
+  final GetUpComingMoviesUseCase Function() getUpComingMoviesUseCase;
 
-  const HomePage(this.getMovieUseCase, {super.key});
+  const HomePage(
+    this.getNowPlayingMoviesUseCase,
+    this.getUpComingMoviesUseCase, {
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (create) => HomeCubit(getMovieUseCase(), HomeState()),
+      create: (create) => HomeCubit(
+        getNowPlayingMoviesUseCase(),
+        getUpComingMoviesUseCase(),
+        HomeState(),
+      ),
       child: const HomeView(),
     );
   }
@@ -30,7 +39,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
     super.initState();
-    context.read<HomeCubit>().fetchMovies();
+    context.read<HomeCubit>().loadMovies();
   }
 
   @override
@@ -43,14 +52,18 @@ class _HomeViewState extends State<HomeView> {
             if (state.homeLoadingState == HomeLoadingState.error) {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
-                  content: Text('Gagal memuat, silahkan coba lagi'),
+                  content: Text('Failed to load some data, please try again'),
                   backgroundColor: OniColor.red,
                 ),
               );
             }
           },
           builder: (_, state) {
-            final cards = state.moviesResponse?.results?.map(
+            if (state.homeLoadingState == HomeLoadingState.loading) {
+              return const Center(child: CircularProgressIndicator());
+            }
+
+            final cards = state.nowPlayingMoviesData?.results?.map(
               (movie) {
                 return TopCard(
                   posterUrl: movie.posterPath ?? '',
@@ -65,14 +78,41 @@ class _HomeViewState extends State<HomeView> {
               },
             ).toList();
 
-            return ListView(
+            return Padding(
               padding: const EdgeInsets.all(16),
-              children: [
-                OniTopPicksSection(
-                  title: 'Now playing movies',
-                  cards: cards ?? [],
-                ),
-              ],
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  OniTopPicksSection(
+                    title: 'Now playing movies',
+                    cards: cards ?? [],
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    'Upcoming Movies',
+                    style: OniTextStyle.h2.copyWith(
+                      color: OniColor.white,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Expanded(
+                    child: ListView.separated(
+                      itemBuilder: (_, index) {
+                        final movie = state.upcomingMoviesData?.results?[index];
+                        return OniUpcomingMovieCard(
+                          posterUrl: movie?.posterPath ?? '',
+                          title: movie?.title ?? '',
+                          releaseDate: movie?.releaseDate ?? '',
+                        );
+                      },
+                      separatorBuilder: (_, __) {
+                        return const SizedBox(height: 8);
+                      },
+                      itemCount: state.upcomingMoviesData?.results?.length ?? 0,
+                    ),
+                  ),
+                ],
+              ),
             );
           },
         ),

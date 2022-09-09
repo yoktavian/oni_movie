@@ -18,7 +18,8 @@ class HomeRouter extends OniRouter {
     return {
       HomeRoutes.home: (_) {
         return HomePage(
-          () => serviceLocator.getIt<GetMovieUseCase>(),
+          () => serviceLocator.getIt<GetNowPlayingMoviesUseCase>(),
+          () => serviceLocator.getIt<GetUpComingMoviesUseCase>(),
         );
       }
     };
