@@ -200,6 +200,13 @@ packages:
       relative: true
     source: path
     version: "0.0.1"
+  onion:
+    dependency: transitive
+    description:
+      path: "module/shared/onion"
+      relative: true
+    source: path
+    version: "0.0.1"
   path:
     dependency: transitive
     description:

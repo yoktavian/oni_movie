@@ -20,7 +20,6 @@ class LoginView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(idUser);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Login'),
