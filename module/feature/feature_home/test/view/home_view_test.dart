@@ -8,11 +8,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-class _FakeGetNowPlayingMovieUseCase extends Mock
-    implements GetNowPlayingMoviesUseCase {}
-
-class _FakeGetUpComingMoviesUseCase extends Mock
-    implements GetUpComingMoviesUseCase {}
+import '../test_helper/fake_get_now_playing_movie_usecase.dart';
+import '../test_helper/fake_get_upcoming_movie_usecase.dart';
 
 void main() {
   late final GetNowPlayingMoviesUseCase nowPlayingMoviesUseCase;
@@ -20,8 +17,8 @@ void main() {
   late HomeCubit cubit;
 
   setUpAll(() {
-    nowPlayingMoviesUseCase = _FakeGetNowPlayingMovieUseCase();
-    upComingMoviesUseCase = _FakeGetUpComingMoviesUseCase();
+    nowPlayingMoviesUseCase = FakeGetNowPlayingMovieUseCase();
+    upComingMoviesUseCase = FakeGetUpcomingMovieUseCase();
     when(() => nowPlayingMoviesUseCase.getMovies()).thenAnswer(
       (invocation) => Future.value(
         OniResult(MoviesResponse()),
