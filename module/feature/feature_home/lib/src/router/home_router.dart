@@ -31,6 +31,6 @@ class HomeModuleConnector extends ModuleConnector {
 
   @override
   void connect() {
-    DomainMovieModuleConnector(serviceLocator).connect();
+    DomainMovieConnector.connect(serviceLocator);
   }
 }

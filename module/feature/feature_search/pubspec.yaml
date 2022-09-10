@@ -1,4 +1,4 @@
-name: feature_auth
+name: feature_search
 description: A new Flutter package project.
 version: 0.0.1
 publish_to: 'none'
@@ -17,6 +17,13 @@ dependencies:
     path: ../../shared/navigation
   oni_service_locator:
     path: ../../../library/oni_service_locator
+  domain_movie:
+    path: ../../shared/domain/domain_movie
+  entity_movie:
+    path: ../../shared/entity/entity_movie
+  async: ^2.9.0
+  onion:
+    path: ../../shared/onion
 
 dev_dependencies:
   flutter_test:

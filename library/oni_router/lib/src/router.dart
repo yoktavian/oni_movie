@@ -22,4 +22,11 @@ abstract class OniRouter {
   }) {
     Navigator.of(context).pushNamed(route, arguments: args);
   }
+
+  static pop(
+    BuildContext context, {
+    Map<String, dynamic>? args,
+  }) {
+    Navigator.of(context).pop(args);
+  }
 }

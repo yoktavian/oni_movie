@@ -1,6 +1,8 @@
 import 'package:domain_movie/domain_movie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:navigation/navigation.dart';
+import 'package:oni_router/oni_router.dart';
 import 'package:onion/onion.dart';
 
 import '/src/cubit/home_cubit.dart';
@@ -87,7 +89,13 @@ class _HomeViewState extends State<HomeView> {
                     title: 'Search movie',
                     placeholder: 'Input keywords',
                     onSubmitted: (keywords) {
-                      print(keywords);
+                      OniRouter.pushName(
+                        context,
+                        SearchRoutes.searchResult,
+                        args: {
+                          SearchBundles.searchKeywords: keywords,
+                        },
+                      );
                     },
                   ),
                   const SizedBox(height: 16),
@@ -107,7 +115,7 @@ class _HomeViewState extends State<HomeView> {
                     child: ListView.separated(
                       itemBuilder: (_, index) {
                         final movie = state.upcomingMoviesData?.results?[index];
-                        return OniUpcomingMovieCard(
+                        return OniMovieCard(
                           posterUrl: movie?.posterPath ?? '',
                           title: movie?.title ?? '',
                           releaseDate: movie?.releaseDate ?? '',
