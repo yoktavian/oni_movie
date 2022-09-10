@@ -12,7 +12,8 @@ dependencies:
     sdk: flutter
   oni_api:
     path: ../../../library/oni_api
-
+  entity_config:
+    path: ../../shared/entity/entity_config
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -8,10 +8,10 @@ enum Env {
   staging,
 }
 
-abstract class Config {
+abstract class FlavorConfig {
   final String apiKey;
   final Mode mode;
   final Env env;
 
-  Config({required this.apiKey, required this.mode, required this.env});
+  FlavorConfig({required this.apiKey, required this.mode, required this.env});
 }

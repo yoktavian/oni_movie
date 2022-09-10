@@ -1,3 +1,3 @@
 library entity_config;
 
-export 'src/flavor.dart';
+export 'src/flavor_config.dart';
