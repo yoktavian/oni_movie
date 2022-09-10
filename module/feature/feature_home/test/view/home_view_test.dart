@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:navigation/navigation.dart';
 
 import '../test_helper/fake_get_now_playing_movie_usecase.dart';
 import '../test_helper/fake_get_upcoming_movie_usecase.dart';
@@ -108,6 +109,48 @@ void main() {
           expect(find.byKey(HomeView.nowPlayingSectionKey), findsOneWidget);
           expect(find.byKey(HomeView.upcomingTitleKey), findsOneWidget);
           expect(find.byKey(HomeView.upcomingSectionKey), findsOneWidget);
+        },
+      );
+
+      testWidgets(
+        'Given all of api req success condition '
+        'When user open home '
+        'Then search bar must be shown and '
+        'When user perform search must be redirect to search result page',
+        (tester) async {
+          cubit = HomeCubit(
+            nowPlayingMoviesUseCase,
+            upComingMoviesUseCase,
+            HomeState(
+              homeLoadingState: HomeLoadingState.success,
+            ),
+          );
+          const dummySearchPageKey = Key('dummy-search-page');
+
+          final app = MaterialApp(
+            home: BlocProvider.value(
+              value: cubit,
+              child: const HomeView(),
+            ),
+            routes: {
+              SearchRoutes.searchResult: (_) {
+                return const SizedBox(
+                  key: dummySearchPageKey,
+                );
+              }
+            },
+          );
+          await tester.pumpWidget(app);
+          await tester.enterText(
+            find.byKey(HomeView.searchBarKey),
+            'Spiderman',
+          );
+          await tester.testTextInput.receiveAction(TextInputAction.done);
+          // close the keyboard
+          await tester.pump();
+          // open search page
+          await tester.pump();
+          expect(find.byKey(dummySearchPageKey), findsOneWidget);
         },
       );
     },
