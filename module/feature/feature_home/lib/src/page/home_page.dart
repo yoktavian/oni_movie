@@ -30,7 +30,7 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class HomeView extends StatefulWidget {
+class HomeView extends StatelessWidget {
   static const loadingKey = Key('loading-widget');
   static const snackBarErrorKey = Key('snackbar-widget');
   static const searchBarKey = Key('search-bar-widget');
@@ -40,11 +40,6 @@ class HomeView extends StatefulWidget {
 
   const HomeView({super.key});
 
-  @override
-  State<HomeView> createState() => _HomeViewState();
-}
-
-class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
