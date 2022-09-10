@@ -11,5 +11,8 @@ class DataMovieConnector {
     serviceLocator.registerFactory<GetUpcomingMovies>(
       () => MovieRepository(serviceLocator.getIt<OniApi>()),
     );
+    serviceLocator.registerFactory<SearchMovie>(
+      () => MovieRepository(serviceLocator.getIt<OniApi>()),
+    );
   }
 }

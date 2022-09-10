@@ -7,5 +7,5 @@ abstract class ModuleConnector {
     connect();
   }
 
-  void connect();
+  void connect() {}
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:onion/onion.dart';
 import 'package:onion/src/widget/oni_label.dart';
 
-class OniUpcomingMovieCard extends StatelessWidget {
+class OniMovieCard extends StatelessWidget {
   static const imageBaseUrl = 'http://image.tmdb.org/t/p/w500/';
   static const double size4 = 4;
   static const double size16 = 16;
@@ -13,7 +13,7 @@ class OniUpcomingMovieCard extends StatelessWidget {
   final String title;
   final String releaseDate;
 
-  const OniUpcomingMovieCard({
+  const OniMovieCard({
     required this.posterUrl,
     required this.title,
     required this.releaseDate,
@@ -33,6 +33,11 @@ class OniUpcomingMovieCard extends StatelessWidget {
               '$imageBaseUrl$posterUrl',
               loadingBuilder: (_, widget, progress) {
                 if (progress == null) return widget;
+                return Container(
+                  color: OniColor.white,
+                );
+              },
+              errorBuilder: (_, __, ___) {
                 return Container(
                   color: OniColor.white,
                 );
@@ -63,7 +68,7 @@ class OniUpcomingMovieCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 4),
-                OniLabel(label: releaseDate),
+                if (releaseDate.isNotEmpty) OniLabel(label: releaseDate),
               ],
             )
           ),

@@ -1,3 +1,5 @@
+import 'package:domain_movie/domain_movie.dart';
+import 'package:entity_movie/entity_movie.dart';
 import 'package:feature_search/src/page/search_result_page.dart';
 import 'package:flutter/widgets.dart';
 import 'package:navigation/navigation.dart';
@@ -10,23 +12,20 @@ class SearchRouter extends OniRouter {
   SearchRouter(this.serviceLocator);
 
   @override
-  late ModuleConnector moduleConnector = HomeModuleConnector(serviceLocator);
+  late ModuleConnector moduleConnector = SearchModuleConnector(serviceLocator);
 
   @override
-  Map<String, WidgetBuilder> get routes  {
+  Map<String, WidgetBuilder> get routes {
     return {
       SearchRoutes.searchResult: (context) {
-        return const SearchResultPage();
+        return SearchResultPage(
+          searchMovieUseCase: () => serviceLocator.getIt<SearchMovieUseCase>(),
+        );
       }
     };
   }
 }
 
-class HomeModuleConnector extends ModuleConnector {
-  HomeModuleConnector(super.serviceLocator);
-
-  @override
-  void connect() {
-
-  }
+class SearchModuleConnector extends ModuleConnector {
+  SearchModuleConnector(super.serviceLocator);
 }

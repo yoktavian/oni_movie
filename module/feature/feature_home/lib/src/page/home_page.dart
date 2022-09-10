@@ -115,7 +115,7 @@ class _HomeViewState extends State<HomeView> {
                     child: ListView.separated(
                       itemBuilder: (_, index) {
                         final movie = state.upcomingMoviesData?.results?[index];
-                        return OniUpcomingMovieCard(
+                        return OniMovieCard(
                           posterUrl: movie?.posterPath ?? '',
                           title: movie?.title ?? '',
                           releaseDate: movie?.releaseDate ?? '',

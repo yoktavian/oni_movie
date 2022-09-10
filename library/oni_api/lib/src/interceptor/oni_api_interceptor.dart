@@ -11,7 +11,7 @@ abstract class OniApiInterceptor extends Interceptor {
     options.headers = headers;
     final queryParameters = queryParams;
     if (queryParameters != null) {
-      options.queryParameters = queryParameters;
+      options.queryParameters.addAll(queryParameters);
     }
     super.onRequest(options, handler);
   }

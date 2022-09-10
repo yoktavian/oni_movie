@@ -12,5 +12,10 @@ class DomainMovieConnector {
     serviceLocator.registerFactory<GetUpComingMoviesUseCase>(
       () => GetUpComingMoviesUseCase(serviceLocator.getIt<GetUpcomingMovies>()),
     );
+    serviceLocator.registerFactory<SearchMovieUseCase>(
+      () => SearchMovieUseCase(
+        serviceLocator.getIt<SearchMovie>(),
+      ),
+    );
   }
 }
