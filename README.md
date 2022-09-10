@@ -2,9 +2,30 @@
 
 A playground to explore flutter project using multiple modules.
 
+
 ## Getting Started
 
 1. For the demo you can download the apk on the demo folder.
+
+
+## Features
+1. Home page
+   - User can see now playing movies
+   - User can see upcoming movies
+2. Search page
+   - User can see list movies based on search keywords
+
+
+# Screenshot
+<b>Home Page</b>
+
+<img src='demo/home.png' width='30%'/>
+<img src='demo/home_search.png' width='30%'/>
+
+<b>Search Page</b>
+
+<img src='demo/search_result.png' width='30%'/>
+
 
 ### Project Structure
 ```
@@ -25,6 +46,9 @@ Main
 |    |  |- domain
 |    |  |  |- domain_movie
 |    |  |- entity
+|    |  |  |- entity_api
+|    |  |  |- entity_config
+|    |  |  |- entity_movie
 |    |  |- navigation
 |    |  |- onion
 ```
@@ -50,6 +74,10 @@ Shared module contains all of modules that have a high possibility to reuse in s
 `Navigation` module was created to help us maintain the path and bundles for each screen. So for each features should be depends on this module to be able get all of the routes of the another screen.
 
 `Onion` was created to standardize the design. So for sure the module contains some of reusable widgets that used in some of modules. It would be easy to reuse the component in several features, just need to import the library and we can use a lot of widget from there. Also there some style as well like textStyle and also color that can be used as a standardization for the project. With this module, we can exactly restrict our designer or developer to use another color or style except the style that already provided in the `Onion` module. That's just one of solution that we can take to standardize the design. The benefit of standarization would be powerfull because everysingle times we need to create new page we just need to use available component. But again, the designer and engineer must be align on that :)
+
+# Flavor
+
+To differentiate the environment, we have 2 kind of flavor configs that are debug and release. The flavor config abstraction saved in `entity_config`, and the implementation class was in the main project. So in the api layer that is `api_client` depends only on the abstraction layer, and the value that is the object from implementation class passed from the main project. With this flavor config we can differentiate the env, so for example we depends on third party library and should be able to use 2 env as well staging and production with different API KEY, with this approach we can achieve that.
 
 # QnA
 6. How to deal with memory leak & FPS drop?
