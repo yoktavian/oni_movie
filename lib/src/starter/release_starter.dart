@@ -20,7 +20,7 @@ Future<void> _initializeProject(
   FlavorConfig config,
   OniServiceLocator serviceLocator,
 ) async {
-  serviceLocator.registerFactory<OniApi>(
+  serviceLocator.registerSingleton<OniApi>(
     () => ApiClient(config),
   );
 }
