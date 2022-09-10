@@ -8,10 +8,15 @@ import 'package:oni_service_locator/src/oni_service_factory.dart';
 /// replace it one by one in every screen, you just need to replace at one
 /// place that is in the dependency injection registrar.
 abstract class OniServiceLocator {
-  final Map<Type, OniServiceFactory> serviceContainer = {};
+  final Map<Type, Object> container = {};
+
+  final Map<Type, OniServiceFactory> serviceFactoryContainer = {};
 
   /// to register all of classes that need to be injected.
   void registerFactory<T extends Object>(ValueGetter<T> factory);
+
+  /// to register all of classes that need to be injected.
+  void registerSingleton<T extends Object>(ValueGetter<T> instance);
 
   /// to get an object that already registered in the service locator.
   /// if the object is not registered yet, then it will trigger an exception.
