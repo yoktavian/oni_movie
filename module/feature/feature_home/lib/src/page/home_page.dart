@@ -83,6 +83,14 @@ class _HomeViewState extends State<HomeView> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  OniSearchBar(
+                    title: 'Search movie',
+                    placeholder: 'Input keywords',
+                    onSubmitted: (keywords) {
+                      print(keywords);
+                    },
+                  ),
+                  const SizedBox(height: 16),
                   OniTopPicksSection(
                     title: 'Now playing movies',
                     cards: cards ?? [],
