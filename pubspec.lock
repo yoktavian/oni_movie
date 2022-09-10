@@ -78,6 +78,13 @@ packages:
       relative: true
     source: path
     version: "0.0.1"
+  entity_config:
+    dependency: "direct main"
+    description:
+      path: "module/shared/entity/entity_config"
+      relative: true
+    source: path
+    version: "0.0.1"
   entity_movie:
     dependency: transitive
     description:
