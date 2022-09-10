@@ -61,7 +61,17 @@ For `oni_api` case this is just a wrapper of `Dio`. Why i need to wrap `Dio` int
 
 `oni_router` was created to help us maintain our routing in flutter. abstraction layer to define some of routes and also the redirection. as you know flutter currently have 2 kind of navigations the first one is navigation1.0 and the another one is navigation2.0. currently i am using navigation1.0 with an abstraction layer in the `oni_router` it self. so if in the feature we want to change the navgiation from navigation1.0 to navigation2.0 we just need to change on the `oni_router` module.
 
-`oni_service_locator` is a simple dependcy injection that help us to reduce the dependcy and decoupled the usage of class/object. also the another benefit is we don't have to reinitialize the same class multiple times. if you need some object you just need to call `serviceLocator.get<YourClass>()` that's it. currently it's only support for factory initialization, haven't support singleton yet.
+`oni_service_locator` is a simple dependcy injection that help us to reduce the dependcy and decoupled the usage of class/object. also the another benefit is we don't have to reinitialize the same class multiple times. if you need some object you just need to call `serviceLocator.get<YourClass>()` that's it. We have two kind of dependcy injection method here, first `factory` that will create new instance everysingle times you want to get the object and the second one is `singleton` that will give you the same instance of the object everysingle times you try to get it.
+
+To register the class with factory type you can do something like this
+```dart
+registerFactory<AbstractClass>(() => ImplementationClass());
+```
+
+And for singleton like this
+```dart
+registerSingleton<AbstractClass>(() => ImplementationClass());
+```
 
 B. Module
 
