@@ -1,8 +1,8 @@
-import 'package:async/async.dart';
+import 'package:entity_api/entity_api.dart';
 
 abstract class SearchMovie {
   static String path = '/3/search/movie';
   static String query = 'query';
 
-  Future<Result> searchMovie(String keywords);
+  Future<OniResult> searchMovie(String keywords);
 }

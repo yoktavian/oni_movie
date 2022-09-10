@@ -17,6 +17,8 @@ dependencies:
   entity_movie:
     path: ../../entity/entity_movie
   async: ^2.9.0
+  entity_api:
+    path: ../../entity/entity_api
 dev_dependencies:
   flutter_test:
     sdk: flutter

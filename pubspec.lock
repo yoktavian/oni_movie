@@ -78,6 +78,13 @@ packages:
       relative: true
     source: path
     version: "0.0.1"
+  entity_api:
+    dependency: transitive
+    description:
+      path: "module/shared/entity/entity_api"
+      relative: true
+    source: path
+    version: "0.0.1"
   entity_config:
     dependency: "direct main"
     description:

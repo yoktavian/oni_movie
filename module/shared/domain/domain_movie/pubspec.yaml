@@ -17,6 +17,8 @@ dependencies:
   oni_service_locator:
     path: ../../../../library/oni_service_locator
   async: ^2.9.0
+  entity_api:
+    path: ../../entity/entity_api
 dev_dependencies:
   flutter_test:
     sdk: flutter

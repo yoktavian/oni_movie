@@ -1,5 +1,6 @@
 import 'package:async/async.dart';
 import 'package:domain_movie/domain_movie.dart';
+import 'package:entity_api/entity_api.dart';
 import 'package:entity_movie/entity_movie.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -9,22 +10,26 @@ class HomeState {
   final HomeLoadingState homeLoadingState;
   final MoviesResponse? nowPlayingMoviesData;
   final MoviesResponse? upcomingMoviesData;
+  final String? errorMessage;
 
   HomeState({
     this.homeLoadingState = HomeLoadingState.loading,
     this.nowPlayingMoviesData,
     this.upcomingMoviesData,
+    this.errorMessage,
   });
 
   HomeState copy({
     HomeLoadingState? homeLoadingState,
     MoviesResponse? nowPlayingMoviesData,
     MoviesResponse? upcomingMoviesData,
+    String? errorMessage,
   }) {
     return HomeState(
       homeLoadingState: homeLoadingState ?? this.homeLoadingState,
       nowPlayingMoviesData: nowPlayingMoviesData ?? this.nowPlayingMoviesData,
       upcomingMoviesData: upcomingMoviesData ?? this.upcomingMoviesData,
+      errorMessage: errorMessage ?? this.errorMessage,
     );
   }
 }
@@ -54,28 +59,44 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   Future<bool> fetchNowPlayingMovies() async {
-    final result = await getNowPlayingMoviesUseCase.getMovies();
-    if (result is ValueResult) {
-      emit(
-        state.copy(
-          nowPlayingMoviesData: result.asValue.value as MoviesResponse,
-        ),
-      );
-      return true;
-    }
-    return false;
+    final response = await getNowPlayingMoviesUseCase.getMovies();
+    bool isSuccess = true;
+    response.when<MoviesResponse>(
+      success: (value) {
+        emit(
+          state.copy(
+            nowPlayingMoviesData: value,
+          ),
+        );
+      },
+      error: (error) {
+        emit(
+          state.copy(errorMessage: error.message),
+        );
+        isSuccess = false;
+      },
+    );
+    return isSuccess;
   }
 
   Future<bool> fetchUpComingMovies() async {
-    final result = await getUpComingMoviesUseCase.getMovies();
-    if (result is ValueResult) {
-      emit(
-        state.copy(
-          upcomingMoviesData: result.asValue.value as MoviesResponse,
-        ),
-      );
-      return true;
-    }
-    return false;
+    final response = await getUpComingMoviesUseCase.getMovies();
+    bool isSuccess = true;
+    response.when<MoviesResponse>(
+      success: (value) {
+        emit(
+          state.copy(
+            upcomingMoviesData: value,
+          ),
+        );
+      },
+      error: (error) {
+        emit(
+          state.copy(errorMessage: error.message),
+        );
+        isSuccess = false;
+      },
+    );
+    return isSuccess;
   }
 }

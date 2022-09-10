@@ -1,7 +1,7 @@
-name: feature_home
+name: entity_api
 description: A new Flutter package project.
 version: 0.0.1
-publish_to: 'none'
+homepage:
 
 environment:
   sdk: '>=2.18.0 <3.0.0'
@@ -10,22 +10,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_bloc: ^8.1.1
-  oni_router:
-    path: ../../../library/oni_router
-  navigation:
-    path: ../../shared/navigation
-  oni_service_locator:
-    path: ../../../library/oni_service_locator
-  domain_movie:
-    path: ../../shared/domain/domain_movie
-  entity_movie:
-    path: ../../shared/entity/entity_movie
-  async: ^2.9.0
-  onion:
-    path: ../../shared/onion
-  entity_api:
-    path: ../../shared/entity/entity_api
 
 dev_dependencies:
   flutter_test:

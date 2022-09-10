@@ -53,8 +53,8 @@ class _HomeViewState extends State<HomeView> {
           listener: (_, state) {
             if (state.homeLoadingState == HomeLoadingState.error) {
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Failed to load some data, please try again'),
+                SnackBar(
+                  content: Text(state.errorMessage ?? 'failed to load'),
                   backgroundColor: OniColor.red,
                 ),
               );

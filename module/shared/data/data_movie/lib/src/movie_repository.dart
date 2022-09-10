@@ -1,4 +1,5 @@
 import 'package:async/async.dart';
+import 'package:entity_api/entity_api.dart';
 import 'package:entity_movie/entity_movie.dart';
 import 'package:oni_api/oni_api.dart';
 
@@ -9,17 +10,17 @@ class MovieRepository
   MovieRepository(this.api);
 
   @override
-  Future<Result> getNowPlayingMovies() async {
+  Future<OniResult> getNowPlayingMovies() async {
     return api.get(path: GetNowPlayingMovies.path);
   }
 
   @override
-  Future<Result> getUpComingMovies() async {
+  Future<OniResult> getUpComingMovies() async {
     return api.get(path: GetUpcomingMovies.path);
   }
 
   @override
-  Future<Result> searchMovie(String keywords) {
+  Future<OniResult> searchMovie(String keywords) {
     return api.get(
       path: SearchMovie.path,
       queryParameters: {SearchMovie.query: keywords},

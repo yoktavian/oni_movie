@@ -1,5 +1,5 @@
-import 'package:async/async.dart';
 import 'package:dio/dio.dart';
+import 'package:entity_api/entity_api.dart';
 import 'package:oni_api/src/interceptor/oni_api_interceptor.dart';
 import 'package:oni_api/src/oni_get.dart';
 import 'package:oni_api/src/oni_post.dart';
@@ -41,21 +41,24 @@ abstract class OniApi implements OniGet, OniPut, OniPost {
   }
 
   @override
-  Future<Result<dynamic>> get({
+  Future<OniResult<dynamic>> get({
     required String path,
     data,
     Map<String, dynamic>? queryParameters,
   }) async {
     try {
       final result = await _dio.get(path, queryParameters: queryParameters);
-      return Result.value(result.data);
+      return OniResult(result.data);
     } catch (e) {
-      return Result.error(e);
+      if (e is DioError) {
+        return OniResult(OniException(e.message));
+      }
+      return OniResult(OniException('unknown error'));
     }
   }
 
   @override
-  Future<Result<dynamic>> post({
+  Future<OniResult<dynamic>> post({
     required String path,
     data,
     Map<String, dynamic>? queryParameters,
@@ -66,14 +69,17 @@ abstract class OniApi implements OniGet, OniPut, OniPost {
         data: data,
         queryParameters: queryParameters,
       );
-      return Result.value(result.data);
+      return OniResult(result.data);
     } catch (e) {
-      return Result.error(e);
+      if (e is DioError) {
+        return OniResult(OniException(e.message));
+      }
+      return OniResult(OniException('unknown error'));
     }
   }
 
   @override
-  Future<Result<dynamic>> put({
+  Future<OniResult<dynamic>> put({
     required String path,
     data,
     Map<String, dynamic>? queryParameters,
@@ -84,9 +90,12 @@ abstract class OniApi implements OniGet, OniPut, OniPost {
         data: data,
         queryParameters: queryParameters,
       );
-      return Result.value(result.data);
+      return OniResult(result.data);
     } catch (e) {
-      return Result.error(e);
+      if (e is DioError) {
+        return OniResult(OniException(e.message));
+      }
+      return OniResult(OniException('unknown error'));
     }
   }
 }
