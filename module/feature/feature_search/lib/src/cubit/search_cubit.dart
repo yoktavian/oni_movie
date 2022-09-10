@@ -33,8 +33,8 @@ class SearchCubit extends Cubit<SearchState> {
 
   SearchCubit(this.useCase, super.initialState);
 
-  void search() async {
-    final response = await useCase.searchMovie(state.keywords);
+  Future<void> search() async {
+    final response = await useCase.searchMovie(keywords: state.keywords);
     // response.when();
     final result = response.result;
     if (result is MoviesResponse) {

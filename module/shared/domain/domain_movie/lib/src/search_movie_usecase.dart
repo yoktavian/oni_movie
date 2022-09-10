@@ -7,7 +7,7 @@ class SearchMovieUseCase {
   final SearchMovie repository;
   SearchMovieUseCase(this.repository);
 
-  Future<OniResult> searchMovie(String keywords) async {
+  Future<OniResult> searchMovie({required String keywords}) async {
     final response = await repository.searchMovie(keywords);
     if (response.result is OniException) {
       return response;

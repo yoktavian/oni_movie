@@ -44,7 +44,7 @@ class HomeCubit extends Cubit<HomeState> {
     super.initialState,
   );
 
-  void loadMovies() async {
+  Future<void> loadMovies() async {
     if (state.homeLoadingState != HomeLoadingState.loading) {
       emit(state.copy(homeLoadingState: HomeLoadingState.loading));
     }

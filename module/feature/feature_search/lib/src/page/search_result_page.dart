@@ -19,25 +19,21 @@ class SearchResultPage extends StatelessWidget {
       create: (_) => SearchCubit(
         searchMovieUseCase(),
         SearchState(keywords: keywords),
-      ),
+      )..search(),
       child: const SearchResultView(),
     );
   }
 }
 
-class SearchResultView extends StatefulWidget {
+class SearchResultView extends StatelessWidget {
+  static const loadingKey = Key('loading-widget');
+  static const snackBarErrorKey = Key('snackbar-widget');
+  static const headerSectionKey = Key('header-widget');
+  static const backKey = Key('back-widget');
+  static const searchResultTitleKey = Key('search-result-title-widget');
+  static const searchResultSection = Key('search-result-section-widget');
+
   const SearchResultView({super.key});
-
-  @override
-  State<SearchResultView> createState() => _SearchResultViewState();
-}
-
-class _SearchResultViewState extends State<SearchResultView> {
-  @override
-  void initState() {
-    super.initState();
-    context.read<SearchCubit>().search();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +46,8 @@ class _SearchResultViewState extends State<SearchResultView> {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
                   content: Text('Failed to search movie'),
+                  backgroundColor: OniColor.red,
+                  key: snackBarErrorKey,
                 ),
               );
             }
@@ -57,29 +55,25 @@ class _SearchResultViewState extends State<SearchResultView> {
           builder: (_, state) {
             if (state.loadingState == SearchLoadingState.loading) {
               return const Center(
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator(key: loadingKey),
               );
             }
 
             final cards = state.movies?.results?.map(
                   (movie) {
-                    return OniMovieCard(
-                      posterUrl: movie.posterPath ?? '',
-                      title: movie.title ?? '',
-                      releaseDate: movie.releaseDate ?? '',
-                    );
-                  },
-                ).toList() ?? [];
+                return OniMovieCard(
+                  posterUrl: movie.posterPath ?? '',
+                  title: movie.title ?? '',
+                  releaseDate: movie.releaseDate ?? '',
+                );
+              },
+            ).toList() ?? [];
 
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  children: [
-
-                  ],
-                ),
                 Padding(
+                  key: headerSectionKey,
                   padding: const EdgeInsets.only(left: 16, top: 16, right: 16),
                   child: Row(
                     children: [
@@ -87,6 +81,7 @@ class _SearchResultViewState extends State<SearchResultView> {
                         onTap: () {
                           OniRouter.pop(context);
                         },
+                        key: backKey,
                         child: const Icon(
                           Icons.arrow_back_ios_outlined,
                           color: OniColor.white,
@@ -99,6 +94,7 @@ class _SearchResultViewState extends State<SearchResultView> {
                           style: OniTextStyle.body.copyWith(color: OniColor.white),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
+                          key: searchResultTitleKey,
                         ),
                       ),
                     ],
@@ -115,6 +111,7 @@ class _SearchResultViewState extends State<SearchResultView> {
                       return const SizedBox(height: 8);
                     },
                     itemCount: cards.length,
+                    key: searchResultSection,
                   ),
                 ),
               ],
