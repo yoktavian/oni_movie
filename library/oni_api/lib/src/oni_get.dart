@@ -1,7 +1,7 @@
-import 'package:async/async.dart';
+import 'package:entity_api/entity_api.dart';
 
 abstract class OniGet {
-  Future<Result<dynamic>> get({
+  Future<OniResult<dynamic>> get({
     required String path,
     dynamic data,
     Map<String, dynamic>? queryParameters,

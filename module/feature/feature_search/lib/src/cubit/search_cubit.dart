@@ -1,4 +1,3 @@
-import 'package:async/async.dart';
 import 'package:domain_movie/domain_movie.dart';
 import 'package:entity_movie/entity_movie.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,11 +34,13 @@ class SearchCubit extends Cubit<SearchState> {
   SearchCubit(this.useCase, super.initialState);
 
   void search() async {
-    final result = await useCase.searchMovie(state.keywords);
-    if (result is ValueResult) {
+    final response = await useCase.searchMovie(state.keywords);
+    // response.when();
+    final result = response.result;
+    if (result is MoviesResponse) {
       emit(
         state.copy(
-          movies: result.asValue.value,
+          movies: result,
           loadingState: SearchLoadingState.success,
         ),
       );

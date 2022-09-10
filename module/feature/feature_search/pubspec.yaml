@@ -24,7 +24,8 @@ dependencies:
   async: ^2.9.0
   onion:
     path: ../../shared/onion
-
+  entity_api:
+    path: ../../shared/entity/entity_api
 dev_dependencies:
   flutter_test:
     sdk: flutter

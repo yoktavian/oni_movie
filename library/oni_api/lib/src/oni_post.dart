@@ -1,7 +1,7 @@
-import 'package:async/async.dart';
+import 'package:entity_api/entity_api.dart';
 
 abstract class OniPost {
-  Future<Result<dynamic>> post({
+  Future<OniResult<dynamic>> post({
     required String path,
     dynamic data,
     Map<String, dynamic>? queryParameters,
